@@ -42,7 +42,7 @@ Shader "Custom/PointSurface"
         {
             // Albedo comes from a texture tinted by color
             fixed4 c = tex2D (_MainTex, IN.uv_MainTex) * _Color;
-            o.Albedo.rg = saturate(IN.worldPos.xy * 0.5 + 0.5);
+            o.Albedo = saturate(IN.worldPos * 0.5 + 0.5);
             // Metallic and smoothness come from slider variables
             o.Metallic = _Metallic;
             o.Smoothness = _Glossiness;

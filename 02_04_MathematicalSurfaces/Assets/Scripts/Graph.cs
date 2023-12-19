@@ -24,31 +24,34 @@ public class Graph : MonoBehaviour
         Vector3 position = Vector3.zero;
         Vector3 scale = Vector3.one * step;
 
-        points = new Transform[resolution];
+        points = new Transform[resolution * resolution];
         for(int i=0; i<points.Length; i++)
-        {
+        { 
             Transform point = Instantiate(pointPrefab);
             points[i] = point;
-            point.SetParent(transform,false);
-
-            position.x = (i + 0.5f) * step - 1.0f;
-            point.localPosition = position;
+            point.SetParent(transform, false);
             point.localScale = scale;
         }
- 
     }
 
     // Update is called once per frame
     void Update()
     {
         float time = Time.time;
-        for(int i = 0; i < points.Length; i++)
-        {
-            Vector3 position = points[i].localPosition;
-            FunctionLibrary.Function f = FunctionLibrary.GetFunction(function);
-            position.y = f(position.x, time);
+        float step = 2.0f / resolution;
 
-            points[i].localPosition = position;
+        for (int i = 0; i < resolution; i++) // row
+        {
+            float v = (i + 0.5f) * step - 1.0f;
+            for (int j = 0; j < resolution; j++) // column
+            {
+                int index = (i * resolution) + j;
+
+                float u = (j + 0.5f) * step - 1.0f;
+
+                FunctionLibrary.Function f = FunctionLibrary.GetFunction(function);
+                points[index].localPosition = f(u, v, time);
+            }
         }
     }
 }
