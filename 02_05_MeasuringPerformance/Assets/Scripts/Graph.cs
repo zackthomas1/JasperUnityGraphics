@@ -5,22 +5,21 @@ using UnityEngine.UIElements;
 
 public class Graph : MonoBehaviour
 {
-
     [SerializeField]
     Transform pointPrefab;
 
     [SerializeField, Range(10,100)]
-    int resolution = 10;
+    int resolution = 40;
 
     [SerializeField]
-    FunctionLibrary.FunctionName function= FunctionLibrary.FunctionName.Wave;
+    FunctionLibrary.FunctionName function= FunctionLibrary.FunctionName.TwistingTorus;
 
     Transform[] points;
 
     // Start is called before the first frame update
     void Awake()
     {
-        float step = 2.0f / resolution;
+        float step = 10.0f / resolution;
         Vector3 position = Vector3.zero;
         Vector3 scale = Vector3.one * step;
 
