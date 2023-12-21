@@ -44,6 +44,17 @@ public static class FunctionLibrary
         return functions[(int)name];
     }
 
+    public static FunctionLibrary.FunctionName GetNextFunction(FunctionLibrary.FunctionName name)
+    {
+        return (int)name < FunctionLibrary.functions.Length-1 ?  name + 1 : 0;
+    }
+
+    public static FunctionLibrary.FunctionName GetRandomFunctionNameOtherThan(FunctionLibrary.FunctionName name)
+    {
+        FunctionName choice = (FunctionName)Random.Range(1, functions.Length);
+        return choice == name ? 0 : choice;
+    }
+
     public static Vector3 PlaneXZ(float u, float v, float t)
     {
         return new Vector3(u, 0.0f, v);
@@ -179,5 +190,10 @@ public static class FunctionLibrary
         p.y = r2 * Mathf.Sin(Mathf.PI * v);
         p.z = s * Mathf.Cos(Mathf.PI * u);
         return p;
+    }
+
+    public static Vector3 Morph(float u, float v, float t, Function from, Function to, float progress)
+    {
+        return Vector3.Lerp(from(u, v, t), to(u, v, t), SmoothStep(0.0f, 1.0f, progress));
     }
 }

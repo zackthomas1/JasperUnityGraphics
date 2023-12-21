@@ -13,7 +13,7 @@ PlayerSettings:
   useOnDemandResources: 0
   accelerometerFrequency: 60
   companyName: DefaultCompany
-  productName: 02_04_MathematicalSurfaces
+  productName: 02_05_MeasuringPerformance
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
@@ -674,8 +674,8 @@ PlayerSettings:
   apiCompatibilityLevelPerPlatform: {}
   m_RenderingPath: 1
   m_MobileRenderingPath: 1
-  metroPackageName: 02_03_BuildingAGraph
-  metroPackageVersion: 
+  metroPackageName: 0203BuildingAGraph
+  metroPackageVersion: 1.0.0.0
   metroCertificatePath: 
   metroCertificatePassword: 
   metroCertificateSubject: 
@@ -683,7 +683,7 @@ PlayerSettings:
   metroCertificateNotAfter: daf06edb8a9952ca
   metroApplicationDescription: 02_03_BuildingAGraph
   wsaImages: {}
-  metroTileShortName: 
+  metroTileShortName: 02_04_MathematicalSurfaces
   metroTileShowName: 0
   metroMediumTileShowName: 0
   metroLargeTileShowName: 0
