@@ -1,12 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 public class GPUGraph : MonoBehaviour
 {
-
     const int maxResolution = 1000;
     [SerializeField, Range(10, maxResolution)]
     int resolution = 500;
@@ -41,6 +41,8 @@ public class GPUGraph : MonoBehaviour
     static readonly int timeId = Shader.PropertyToID("_Time");
     static readonly int transitionProgressId = Shader.PropertyToID("_TransitionProgress");
 
+    public static int FunctionsCount => Enum.GetNames(typeof(FunctionName)).Length;
+   
     void UpdateFunctionOnGPU ()
     {
         float step = 2.0f / resolution;
@@ -54,10 +56,8 @@ public class GPUGraph : MonoBehaviour
         {
             duration += Time.deltaTime;
 
-
             if (transitioning)
             {
-
                 if (duration >= transitionDuration)
                 {
                     duration -= transitionDuration;
@@ -75,27 +75,21 @@ public class GPUGraph : MonoBehaviour
             if (transitioning)
             {
                 computeShader.SetFloat(transitionProgressId, Mathf.SmoothStep(0.0f, 1.0f, duration / transitionDuration));
-
-                kernelIndex = (int)previousFunction * 6 + 1;
-                computeShader.SetBuffer(kernelIndex, positionsId, positionsBuffer);
-                computeShader.Dispatch(kernelIndex, groups, groups, 1);
+                kernelIndex = (int)function + (int)previousFunction * FunctionsCount;
             }
             else
             {
                 transitioning = false;
-                computeShader.SetFloat(transitionProgressId, 0.0f);
-
-                kernelIndex = (int)function + (int)function * 6;
-                computeShader.SetBuffer(kernelIndex, positionsId, positionsBuffer);
-                computeShader.Dispatch(kernelIndex, groups, groups, 1);
+                kernelIndex = (int)function + (int)function * FunctionsCount;
             }
         }
         else
         {
-            kernelIndex = (int)function + (int)function * 6;
-            computeShader.SetBuffer(kernelIndex, positionsId, positionsBuffer);
-            computeShader.Dispatch(kernelIndex, groups, groups, 1);
+            kernelIndex = (int)function + (int)function * FunctionsCount;
         }
+       
+        computeShader.SetBuffer(kernelIndex, positionsId, positionsBuffer);
+        computeShader.Dispatch(kernelIndex, groups, groups, 1);
 
         material.SetBuffer(positionsId, positionsBuffer);
         material.SetFloat(stepId, step);

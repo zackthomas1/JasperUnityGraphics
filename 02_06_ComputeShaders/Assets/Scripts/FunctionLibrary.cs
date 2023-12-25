@@ -160,7 +160,7 @@ public static class FunctionLibrary
     public static Vector3 TwistingSphere(float u, float v, float t)
     {
         Vector3 p;
-        float r = 0.9f + 0.1f * Mathf.Sin(Mathf.PI * (6.0f * u + 4.0f * v + t));
+        float r = 0.9f + 0.1f * Mathf.Sin(Mathf.PI * (12.0f * u + 8.0f * v + t));
         float s = r * Mathf.Cos(0.5f * Mathf.PI * v);
         p.x = s * Mathf.Sin(Mathf.PI * u);
         p.y = r * Mathf.Sin(0.5f * Mathf.PI * v);
@@ -183,8 +183,8 @@ public static class FunctionLibrary
     public static Vector3 TwistingTorus(float u, float v, float t)
     {
         Vector3 p;
-        float r1 = 0.7f + 0.1f * Mathf.Sin(Mathf.PI*(6.0f * u + t * 0.5f));
-        float r2 = 0.15f + 0.05f * Mathf.Sin(Mathf.PI * (8.0f * u + 4.0f * v + 2.0f * t));
+        float r1 = 0.7f + 0.1f * Mathf.Sin(Mathf.PI*(8.0f * u + 0.5f * t));
+        float r2 = 0.15f + 0.05f * Mathf.Sin(Mathf.PI * (16.0f * u + 8.0f * v + 3.0f * t));
         float s = r1 + r2 * Mathf.Cos(Mathf.PI * v);
         p.x = s * Mathf.Sin(Mathf.PI * u);
         p.y = r2 * Mathf.Sin(Mathf.PI * v);
